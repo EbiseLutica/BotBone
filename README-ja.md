@@ -2,14 +2,13 @@
 
 [English](README.md) ・ 日本語
 
-BotBone は、オープンソースな bot フレームワークです。
+BotBone は、多くのソーシャルメディアに対応した bot を作成できるフレームワークです。
 
-特定のソーシャルメディアから独立した API を持ち、多くのソーシャルメディアで動作するように設計されています。
-
+特定のソーシャルメディアに依存しない、独立した API を持ち、API に基づいたコードを書くだけで多くのソーシャルメディアで動作する bot を作れるようになっています。
 
 ## モジュール
 
-モジュールは、BotBone の脳にあたります。リプライ, リアクションなどを行う為には、モジュールを bot の機能として作成し、 BotBone に読み込ませます。
+モジュールは、BotBone の脳にあたります。リプライ, リアクションなどを行う為には、モジュールを bot の機能として作成し、読み込ませます。
 
 ## モジュールを自作する方法
 
@@ -40,12 +39,12 @@ BotBone に対応するプラットフォームアダプターを自作するた
 
 ## 必要なソフトウェア
 
-- .NET Core 2.1
+- .NET Core 3.0
 
 ## ビルド方法
 
 ```shell
-git clone --recursive https://github.com/Xeltica/BotBone.git
+git clone --recursive https://github.com/Xeltica/BotBone
 
 cd BotBone
 
