@@ -6,7 +6,6 @@ namespace BotBone.Core.Modules
 	public class CommandModule : ModuleBase
 	{
 		public override int Priority => -10000;
-		public static readonly string StatCommandUsedCount = "stat.command.used-count";
 		public override async Task<bool> ActivateAsync(IPost n, IShell shell, Server core)
 		{
 			var t = n.Text?.TrimMentions();
@@ -18,7 +17,6 @@ namespace BotBone.Core.Modules
 				try
 				{
 					response = await core.ExecCommand(new PostCommandSender(n, core.IsSuperUser(n.User)), t);
-					core.Storage[n.User].Add(StatCommandUsedCount);
 				}
 				catch (AdminOnlyException)
 				{
