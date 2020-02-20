@@ -1,0 +1,55 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build-misskey",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/BotBone.Misskey/BotBone.Misskey.csproj"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "build-mastodon",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/BotBone.Mastodon/BotBone.Mastodon.csproj"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "build-discord",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/BotBone.Discord/BotBone.Discord.csproj"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "build-standalone",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/BotBone.Standalone/BotBone.Standalone.csproj"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "build-sea",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/BotBone.Sea/BotBone.Sea.csproj"
+			],
+			"problemMatcher": "$msCompile"
+		}
+	]
+}
