@@ -491,17 +491,6 @@ namespace BotBone.Core
 			}
 		}
 
-		/// <summary>
-		/// Resources フォルダ内に配置された組込みリソースを取得します。
-		/// </summary>
-		/// <param name="path">Resources フォルダからの相対パスを . で繋いだもの。</param>
-		/// <returns>取得したリソースのストリーム。</returns>
-		public static Stream GetEmbeddedResource(string path)
-		{
-			var asm = typeof(Server).GetTypeInfo().Assembly;
-			return asm.GetManifestResourceStream($"{asm.GetName().Name}.Resources.{path}");
-		}
-
 		private void WriteException(Exception ex)
 		{
 			Logger.Error($"{ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}");
