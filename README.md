@@ -6,7 +6,6 @@ BotBone is a open-source chatbot barebone for many kinds of social media.
 
 It has a BotBone API that independent of a specific social-media platform, so you can run your original bot in all supported platform by writing and deploying your plugin.
 
-
 ## Requirement
 
 - .NET Core 3
