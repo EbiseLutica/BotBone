@@ -73,7 +73,28 @@ namespace BotBone.Core
 		public Server(IShell shell)
 		{
 			Shell = shell;
-			Modules = Assembly.GetExecutingAssembly().GetTypes()
+
+			const string pluginsPath = "./plugins";
+
+			if (!Directory.Exists(pluginsPath))
+			{
+				Directory.CreateDirectory(pluginsPath);
+			}
+
+			var types = Directory.EnumerateFiles(pluginsPath,"*.dll")
+				.Select(path => 
+				{
+					Logger.Info("Loading plugin from " + path);
+					return Assembly.LoadFrom(path);
+				})
+				.SelectMany(a => 
+				{
+					var types = a.GetTypes();
+					Logger.Info($"Loaded {types.Count()} types");
+					return types;
+				});
+
+			Modules = types
 						.Where(typeof(IModule).IsAssignableFrom)
 						.Where(a => a.GetConstructor(Type.EmptyTypes) != null)
 						.Select(a => Activator.CreateInstance(a))
@@ -81,12 +102,16 @@ namespace BotBone.Core
 						.OrderBy(mod => mod.Priority)
 						.ToList();
 
-			Commands = Assembly.GetExecutingAssembly().GetTypes()
+			Logger.Info($"Loaded {Modules.Count} modules");
+
+			Commands = types
 						.Where(typeof(ICommand).IsAssignableFrom)
 						.Where(a => a.GetConstructor(Type.EmptyTypes) != null)
 						.Select(a => Activator.CreateInstance(a))
 						.OfType<ICommand>()
 						.ToList();
+			Logger.Info($"Loaded {Commands.Count} commands");
+
 
 			string adminId = "";
 
