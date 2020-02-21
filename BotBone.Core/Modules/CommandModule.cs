@@ -39,7 +39,6 @@ namespace BotBone.Core.Modules
 				{
 					await shell.ReplyAsync(n, response);
 				}
-				EconomyModule.Pay(n, shell, core);
 				return true;
 			}
 			return false;

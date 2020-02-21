@@ -13,7 +13,7 @@ namespace BotBone.Standalone
 		const string Version = "1.0.0";
 		static async Task Main(string[] args)
 		{
-			Console.WriteLine(Server.BotBoneAA + " version " + Server.Version);
+			Console.WriteLine("BotBone version " + Server.Version);
 			WriteLine($"BotBone.Standalone version {Version}");
 			WriteLine("(C)2019-2020 Xeltica");
 			WriteLine();
