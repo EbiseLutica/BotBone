@@ -2,40 +2,13 @@
 
 [English](README.md) ・ 日本語
 
-BotBone は、多くのソーシャルメディアに対応した bot を作成できるフレームワークです。
+BotBone は、多くのソーシャルメディアに対応したチャットボットのベアボーンです。
 
-特定のソーシャルメディアに依存しない、独立した API を持ち、API に基づいたコードを書くだけで多くのソーシャルメディアで動作する bot を作れるようになっています。
+特定のソーシャルメディアに依存しないよう設計された BotBone API を提供しているため、プラグインを作成し所定の場所に配置するだけで、あなただけの bot を対応する全てのプラットフォームで動かせます。
 
-## モジュール
+## ドキュメント
 
-モジュールは、BotBone の脳にあたります。リプライ, リアクションなどを行う為には、モジュールを bot の機能として作成し、読み込ませます。
-
-## モジュールを自作する方法
-
-BotBone に対応するモジュールを自作するためには、 [これを読んでください(工事中)](/docs/ja/module)
-
-## プラットフォームアダプター
-
-BotBone API は 各ソーシャルメディアの持つ API を抽象化したものです。
-
-プラットフォームアダプターは BotBone API の実装であり、特定のプラットフォーム上で BotBone を動作させる為のものです。 hubot のアダプターのような役割を持ちます。
-
-[✔] は実装済み, [ ] は計画中のもの。
-
-- [x] Misskey
-- [x] Mastodon
-- [x] Standalone
-	- 対話型シェル
-- [x] Discord
-- [x] [rinsuki/sea](https://github.com/rinsuki/sea)
-- [ ] Slack
-- [ ] LINE
-- [ ] Twitter
-
-
-### プラットフォームアダプターを自作する方法
-
-BotBone に対応するプラットフォームアダプターを自作するためには、 [これを読んでください(工事中)](/docs/ja/adapter)
+整備中です。
 
 ## 必要なソフトウェア
 
@@ -65,12 +38,6 @@ cd BotBone.Discord && dotnet run
 # BotBone Interactive を実行
 cd BotBone.Standalone && dotnet run
 ```
-
-
-## 貢献
-
-- [バグ報告 / 要望](//github.com/xeltica/BotBone/issues/new)
-- [プルリクエスト](//github.com/xeltica/BotBone/compare)
 
 ### コントリビューター
 

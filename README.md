@@ -2,40 +2,10 @@
 
 English ・ [日本語](README-ja.md)
 
-BotBone is a open-source framework to create chat-bot.
+BotBone is a open-source chatbot barebone for many kinds of social media.
 
-It has an API that independent of a specific social-media platform, so BotBone can run on a lots of social media services.
+It has a BotBone API that independent of a specific social-media platform, so you can run your original bot in all supported platform by writing and deploying your plugin.
 
-## Modules
-
-Modules are BotBone's actual brain. To reply, react, repost etc, create modules as bot's features, and let BotBone load them.
-
-## How to write your own module
-
-To write your module for BotBone, [read this document(TBD)](/docs/module)
-
-## Platform Adapters
-
-BotBone API is an abstractive API of each social media.
-
-Platform adapters are implemented BotBone API to run BotBone on the specified platform. It's same as hubot's adapter.
-
-[✔] is implemented, and [ ] is in plan.
-
-- [x] Misskey
-- [x] Mastodon
-- [x] Standalone
-	- A REPL
-- [x] Discord
-- [x] [rinsuki/sea](https://github.com/rinsuki/sea)
-- [ ] Slack
-- [ ] LINE
-- [ ] Twitter
-
-
-### How to write your own platform adapter
-
-To write your own platform adapter for BotBone, [read this doc(TBD)](/docs/adapter)
 
 ## Requirement
 
@@ -65,12 +35,6 @@ cd BotBone.Discord && dotnet run
 # Run BotBone Interactive
 cd BotBone.Standalone && dotnet run
 ```
-
-
-## Contributing
-
-- [Issues](//github.com/xeltica/BotBone/issues/new)
-- [Pull Requests](//github.com/xeltica/BotBone/compare)
 
 ### Contributors
 
