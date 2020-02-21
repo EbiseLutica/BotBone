@@ -92,7 +92,8 @@ namespace BotBone.Core
 					var types = a.GetTypes();
 					Logger.Info($"Loaded {types.Count()} types");
 					return types;
-				});
+				})
+				.ToList();
 
 			Modules = types
 						.Where(typeof(IModule).IsAssignableFrom)
