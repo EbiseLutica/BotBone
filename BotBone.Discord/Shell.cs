@@ -109,7 +109,7 @@ namespace BotBone.Discord
 			if (string.IsNullOrEmpty(text))
 				return null;
 			var mention = (post.User as DCUser)?.Native.Mention;
-			if (await PostAsync($"@{mention ?? "null"} {text}", cw, attachments) is IMessage mes)
+			if (await PostAsync($"{mention ?? "null"} {text}", cw, attachments) is IMessage mes)
 				return new DCPost(mes, post);
 			return null;
 		}
@@ -232,7 +232,7 @@ namespace BotBone.Discord
 		}
 
 		// || で挟むと隠し文字列として機能する
-		public string Cw(string cw, string text)
+		public string Cw(string? cw, string text)
 		{
 			return cw == null ? text : $"{cw}\n||{text}||";
 		}
@@ -267,7 +267,7 @@ namespace BotBone.Discord
 		private async Task<IMessage?> PostAsync(string? text, string? cw, List<Core.Api.IAttachment>? attachments)
 		{
 			// Discord has no api to send file from ID
-			if (cw != null && text != null && CurrentChannel != null)
+			if (text != null && CurrentChannel != null)
 				return await CurrentChannel.SendMessageAsync(Cw(cw, text));
 			return null;
 		}
