@@ -52,6 +52,16 @@ namespace BotBone.Core.Api
 			logger.Debug("Reloaded storage data!");
 		}
 
+		/// <summary>
+		/// UserStorage の引っ越しを行います。
+		/// </summary>
+		public void Migrate(string userIdFrom, string userIdTo)
+		{
+			storage[userIdTo] = this[userIdFrom];
+			storage[userIdFrom].ClearAll();
+			Save();
+		}
+
 		private string SerializeStorage()
 		{
 			lock (storage)
@@ -84,7 +94,7 @@ namespace BotBone.Core.Api
 			{
 				if (initialRecord == null)
 				{
-					logger.Debug("r is null");
+					logger.Debug($"{nameof(initialRecord)} is null");
 				}
 				else
 				{
