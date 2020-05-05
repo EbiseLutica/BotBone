@@ -22,7 +22,7 @@ namespace BotBone.Core
 		/// <summary>
 		/// バージョンを取得します。
 		/// </summary>
-		public static string Version => "1.0.0";
+		public static string Version => "1.1.0";
 
 		/// <summary>
 		/// 読み込まれているモジュール一覧を取得します。
@@ -81,13 +81,13 @@ namespace BotBone.Core
 				Directory.CreateDirectory(pluginsPath);
 			}
 
-			var types = Directory.EnumerateFiles(pluginsPath,"*.dll")
-				.Select(path => 
+			var types = Directory.EnumerateFiles(pluginsPath, "*.dll")
+				.Select(path =>
 				{
 					Logger.Info("Loading plugin from " + path);
 					return Assembly.LoadFrom(path);
 				})
-				.SelectMany(a => 
+				.SelectMany(a =>
 				{
 					var types = a.GetTypes();
 					Logger.Info($"Loaded {types.Count()} types");
