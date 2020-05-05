@@ -11,7 +11,7 @@ namespace BotBone.Standalone
 	class Program
 	{
 		const string Version = "1.0.0";
-		static async Task Main(string[] args)
+		static async Task Main()
 		{
 			Console.WriteLine("BotBone version " + Server.Version);
 			WriteLine($"BotBone.Standalone version {Version}");

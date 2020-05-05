@@ -264,7 +264,7 @@ namespace BotBone.Discord
 			}
 		}
 
-		private async Task<IMessage?> PostAsync(string? text, string? cw, List<Core.Api.IAttachment>? attachments)
+		private async Task<IMessage?> PostAsync(string? text, string? cw, List<Core.Api.IAttachment>? _)
 		{
 			// Discord has no api to send file from ID
 			if (text != null && CurrentChannel != null)
@@ -272,6 +272,6 @@ namespace BotBone.Discord
 			return null;
 		}
 
-		private Logger logger = new Logger(nameof(Shell));
+		private readonly Logger logger = new Logger(nameof(Shell));
 	}
 }

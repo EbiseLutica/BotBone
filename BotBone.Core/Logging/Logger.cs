@@ -83,19 +83,19 @@ namespace BotBone.Core
 			{
 				loggingStreams?.ForEach(l =>
 				{
-					l.WriteLine($"{DateTime.Now.ToString("[HH:mm:ss]")}{prefix}: {obj ?? "null"}");
+					l.WriteLine($"{DateTime.Now:[HH:mm:ss]}{prefix}: {obj ?? "null"}");
 					l.Flush();
 				});
 			}
 
 			public async Task OutputAsync(object obj, string prefix = "")
 			{
-				await loggingStreams.ForEach(l => l.WriteLineAsync($"{DateTime.Now.ToString("[HH:mm:ss]")}{prefix}: {obj ?? "null"}"));
+				await loggingStreams.ForEach(l => l.WriteLineAsync($"{DateTime.Now:[HH:mm:ss]}{prefix}: {obj ?? "null"}"));
 			}
 
 			internal static LoggerServer Instance { get; } = new LoggerServer();
 
-			private StreamWriter[] loggingStreams;
+			private readonly StreamWriter[] loggingStreams;
 		}
 	}
 }

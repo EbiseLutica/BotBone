@@ -85,14 +85,16 @@ namespace BotBone.Misskey
 			// 呼ばないとストリームの初期化ができないらしい
 			await mi.Streaming.ConnectAsync();
 
-			var sh = new Shell(mi, myself, logger);
-			sh.MaxNoteLength = (await mi.MetaAsync()).MaxNoteTextLength;
+			var sh = new Shell(mi, myself, logger)
+			{
+				MaxNoteLength = (await mi.MetaAsync()).MaxNoteTextLength
+			};
 			return sh;
 		}
 
 		public async Task<IPost?> ReplyAsync(IPost post, string? text, string? cw = null, Visibility visiblity = Visibility.Default, List<string>? choices = null, List<IAttachment>? attachments = null)
 		{
-			if (post is MiDmPost dm)
+			if (post is MiDmPost)
 			{
 				return new MiDmPost(await Misskey.Messaging.Messages.CreateAsync(post.User.Id, $"{(cw != default ? "**" + cw + "**\n\n" : "")}{text}", attachments?.FirstOrDefault()?.Id));
 			}
@@ -261,7 +263,7 @@ namespace BotBone.Misskey
 				1 => await Misskey.Users.ShowAsync(username: splitted[0]),
 				_ => await Misskey.Users.ShowAsync(username: splitted[0], host: splitted[1]),
 			}).FirstOrDefault();
-			
+
 			return acct != null ? new MiUser(acct) : null;
 		}
 

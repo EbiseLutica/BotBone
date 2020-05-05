@@ -219,20 +219,14 @@ namespace BotBone.Mastodon
 
 		private VisibilityType MapVisibility(Visibility vis, Visibility vis2)
 		{
-			switch (vis)
+			return vis switch
 			{
-				case Visibility.Public:
-					return VisibilityType.Public;
-				case Visibility.Private:
-					return VisibilityType.Private;
-				case Visibility.Limited:
-					return VisibilityType.Unlisted;
-				case Visibility.Direct:
-					return VisibilityType.Direct;
-				case Visibility.Default:
-				default:
-					return MapVisibility(vis2, Visibility.Public);
-			}
+				Visibility.Public => VisibilityType.Public,
+				Visibility.Private => VisibilityType.Private,
+				Visibility.Limited => VisibilityType.Unlisted,
+				Visibility.Direct => VisibilityType.Direct,
+				_ => MapVisibility(vis2, Visibility.Public),
+			};
 		}
 
 		private void SubscribeStreams()
@@ -271,7 +265,7 @@ namespace BotBone.Mastodon
 		{
 			var redirect = "urn:ietf:wg:oauth:2.0:oob";
 			var scope = AccessScope.Read | AccessScope.Write | AccessScope.Follow;
-			var app = await don.Apps.RegisterAsync("BotBone for Mastodon", redirect, scope);
+			_ = await don.Apps.RegisterAsync("BotBone for Mastodon", redirect, scope);
 
 			var url = don.Auth.AuthorizeUrl(redirect, scope);
 			try
@@ -295,7 +289,7 @@ namespace BotBone.Mastodon
 		}
 
 		private IDisposable? followed, reply, tl;
-		private Logger logger;
+		private readonly Logger logger;
 	}
 
 	public static class ConvertHelper

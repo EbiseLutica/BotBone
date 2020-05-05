@@ -97,18 +97,18 @@ namespace BotBone.Core.Api
 			return rec;
 		}
 
-		private ConcurrentDictionary<string, UserRecord> storage = new ConcurrentDictionary<string, UserRecord>();
+		private readonly ConcurrentDictionary<string, UserRecord> storage = new ConcurrentDictionary<string, UserRecord>();
 
-		private object fileLock = new object();
+		private readonly object fileLock = new object();
 
 		protected static Logger logger = new Logger("UserStorage");
 
 		public class UserRecord
 		{
 			public UserRecord() { }
-			public UserRecord(JObject obj) => record = obj;
+			public UserRecord(JObject obj) => InternalRecord = obj;
 
-			internal JObject InternalRecord => record;
+			internal JObject InternalRecord { get; } = new JObject();
 
 			public T Get<T>(string key, T defaultValue = default)
 			{
@@ -119,7 +119,7 @@ namespace BotBone.Core.Api
 				// 正しい型の値があれば返す　なければデフォルト
 				try
 				{
-					return record[key].ToObject<T>();
+					return InternalRecord[key].ToObject<T>();
 				}
 				catch (ArgumentException ex)
 				{
@@ -128,13 +128,13 @@ namespace BotBone.Core.Api
 				}
 			}
 
-			public bool Has(string key) => record.ContainsKey(key);
+			public bool Has(string key) => InternalRecord.ContainsKey(key);
 
 			public bool Is<T>(string key) => Has(key);
 
 			public void Set<T>(string key, T value)
 			{
-				record[key] = JToken.FromObject(value);
+				InternalRecord[key] = JToken.FromObject(value);
 
 				Updated?.Invoke();
 			}
@@ -163,19 +163,17 @@ namespace BotBone.Core.Api
 			public void Clear(string key)
 			{
 				if (!Has(key)) return;
-				record.Remove(key);
+				InternalRecord.Remove(key);
 				Updated?.Invoke();
 			}
 
 			public void ClearAll()
 			{
-				record.RemoveAll();
+				InternalRecord.RemoveAll();
 				Updated?.Invoke();
 			}
 
 			public event Action? Updated;
-
-			private JObject record = new JObject();
 		}
 	}
 }

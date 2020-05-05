@@ -7,12 +7,12 @@ namespace BotBone.Misskey
 {
 	class Program
 	{
-		static async Task Main(string[] args)
+		static async Task Main()
 		{
 			Console.WriteLine("BotBone version " + Server.Version);
 			var logger = new Logger("Bootstrap");
 			logger.Info("BotBone.Misskey " + Shell.Version);
-			var sh = await Shell.InitializeAsync();
+			await Shell.InitializeAsync();
 			logger.Info("シェルを初期化しました！");
 			logger.Info("起動しました！");
 

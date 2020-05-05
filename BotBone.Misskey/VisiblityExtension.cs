@@ -7,37 +7,26 @@ namespace BotBone.Misskey
 	{
 		public static Visibility ToVisiblity(this string visiblity)
 		{
-			switch (visiblity)
+			return visiblity switch
 			{
-				case "public":
-					return Visibility.Public;
-				case "specified":
-					return Visibility.Direct;
-				case "home":
-					return Visibility.Limited;
-				case "followers":
-					return Visibility.Private;
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
+				"public" => Visibility.Public,
+				"specified" => Visibility.Direct,
+				"home" => Visibility.Limited,
+				"followers" => Visibility.Private,
+				_ => throw new ArgumentOutOfRangeException(),
+			};
 		}
 		public static string? ToStr(this Visibility visiblity)
 		{
-			switch (visiblity)
+			return visiblity switch
 			{
-				case Visibility.Default:
-					return null;
-				case Visibility.Public:
-					return "public";
-				case Visibility.Limited:
-					return "home";
-				case Visibility.Private:
-					return "followers";
-				case Visibility.Direct:
-					return "specified";
-				default:
-					throw new ArgumentOutOfRangeException(nameof(visiblity));
-			}
+				Visibility.Default => null,
+				Visibility.Public => "public",
+				Visibility.Limited => "home",
+				Visibility.Private => "followers",
+				Visibility.Direct => "specified",
+				_ => throw new ArgumentOutOfRangeException(nameof(visiblity)),
+			};
 		}
 	}
 
