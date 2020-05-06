@@ -22,7 +22,7 @@ namespace BotBone.Core
 		/// <summary>
 		/// バージョンを取得します。
 		/// </summary>
-		public static string Version => "1.1.0";
+		public static string Version => "1.1.1";
 
 		/// <summary>
 		/// 読み込まれているモジュール一覧を取得します。
@@ -95,22 +95,21 @@ namespace BotBone.Core
 				})
 				.ToList();
 
-			Modules = types
-						.Where(typeof(IModule).IsAssignableFrom)
-						.Where(a => a.GetConstructor(Type.EmptyTypes) != null)
-						.Select(a => Activator.CreateInstance(a))
-						.OfType<IModule>()
-						.OrderBy(mod => mod.Priority)
-						.ToList();
+			var pluginTypes = types
+				.Where(t => typeof(IModule).IsAssignableFrom(t) || typeof(ICommand).IsAssignableFrom(t))
+				.Where(a => a.GetConstructor(Type.EmptyTypes) != null)
+				.Select(a => Activator.CreateInstance(a));
+
+			Modules = pluginTypes
+				.OfType<IModule>()
+				.OrderBy(mod => mod.Priority)
+				.ToList();
 
 			Logger.Info($"Loaded {Modules.Count} modules");
 
-			Commands = types
-						.Where(typeof(ICommand).IsAssignableFrom)
-						.Where(a => a.GetConstructor(Type.EmptyTypes) != null)
-						.Select(a => Activator.CreateInstance(a))
-						.OfType<ICommand>()
-						.ToList();
+			Commands = pluginTypes
+				.OfType<ICommand>()
+				.ToList();
 			Logger.Info($"Loaded {Commands.Count} commands");
 
 

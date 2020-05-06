@@ -1,4 +1,4 @@
-version: 1.1.0.{build}
+version: 1.1.1.{build}
 image: Visual Studio 2019
 skip_non_tags: true
 
@@ -44,8 +44,9 @@ deploy:
     description: |
       これは BotBone Plugin 開発者用APIライブラリです。動作する BotBone 本体ではありません。
 
-      ## 1.1.0
-      - UserStorage.Migrate メソッドを追加
+      ## 1.1.1
+      - IModule, ICommand を両方実装するプラグインが、コマンドとモジュールでそれぞれ別々にインスタンス化されてしまっていた問題を修正
+      - API に変更はありません。
     auth_token:
       secure: FUlGF4CyRZNM6jaGz2wlmsOIwZt4av2Cxn4lHbi5wU5lim3FixH9ZIhLGDRZftOx
     on:
