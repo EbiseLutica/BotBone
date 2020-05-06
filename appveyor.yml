@@ -44,8 +44,8 @@ deploy:
     description: |
       これは BotBone Plugin 開発者用APIライブラリです。動作する BotBone 本体ではありません。
 
-      ## 1.1.1
-      - IModule, ICommand を両方実装するプラグインが、コマンドとモジュールでそれぞれ別々にインスタンス化されてしまっていた問題を修正
+      ## 1.1.1a
+      - IModule, ICommand を両方実装するプラグインが、コマンドとモジュールでそれぞれ別々にインスタンス化されてしまっていた問題を修正できていなかったので修正
       - API に変更はありません。
     auth_token:
       secure: FUlGF4CyRZNM6jaGz2wlmsOIwZt4av2Cxn4lHbi5wU5lim3FixH9ZIhLGDRZftOx
