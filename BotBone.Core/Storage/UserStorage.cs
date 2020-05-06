@@ -57,7 +57,7 @@ namespace BotBone.Core.Api
 		/// </summary>
 		public void Migrate(string userIdFrom, string userIdTo)
 		{
-			storage[userIdTo] = this[userIdFrom];
+			storage[userIdTo] = new UserRecord(this[userIdFrom].InternalRecord.DeepClone() as JObject);
 			storage[userIdFrom].ClearAll();
 			Save();
 		}
