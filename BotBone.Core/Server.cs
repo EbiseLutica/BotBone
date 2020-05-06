@@ -95,19 +95,20 @@ namespace BotBone.Core
 				})
 				.ToList();
 
-			var pluginTypes = types
+			var plugins = types
 				.Where(t => typeof(IModule).IsAssignableFrom(t) || typeof(ICommand).IsAssignableFrom(t))
 				.Where(a => a.GetConstructor(Type.EmptyTypes) != null)
-				.Select(a => Activator.CreateInstance(a));
+				.Select(a => Activator.CreateInstance(a))
+				.ToList();
 
-			Modules = pluginTypes
+			Modules = plugins
 				.OfType<IModule>()
 				.OrderBy(mod => mod.Priority)
 				.ToList();
 
 			Logger.Info($"Loaded {Modules.Count} modules");
 
-			Commands = pluginTypes
+			Commands = plugins
 				.OfType<ICommand>()
 				.ToList();
 			Logger.Info($"Loaded {Commands.Count} commands");
