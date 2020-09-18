@@ -364,8 +364,8 @@ namespace BotBone.Core
 				{
 					var (mod, arg) = ContextPostDictionary[mention.Reply.Id];
 					ContextPostDictionary.Remove(mention.Reply.Id);
-					await mod.OnRepliedContextually(mention, mention.Reply, arg, Shell, this);
-					return;
+					if (await mod.OnRepliedContextually(mention, mention.Reply, arg, Shell, this))
+						return;
 				}
 
 				// 非同期実行中にモジュール追加されると例外が発生するので毎回リストをクローン
@@ -417,9 +417,9 @@ namespace BotBone.Core
 				{
 					var (mod, arg) = ContextUserDictionary[post.User.Id];
 					ContextUserDictionary.Remove(post.User.Id);
-					await mod.OnRepliedContextually(post, null, arg, Shell, this);
-					return;
-				}
+					if (await mod.OnRepliedContextually(post, null, arg, Shell, this))
+						return;
+                }
 
 				// 非同期実行中にモジュール追加されると例外が発生するので毎回リストをクローン
 				foreach (var mod in Modules.ToList())
