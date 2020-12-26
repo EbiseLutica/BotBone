@@ -220,34 +220,20 @@ namespace BotBone.Misskey
 
 		public static Reaction ConvertReaction(string reactionChar)
 		{
-			switch (reactionChar)
+			return reactionChar switch
 			{
-				case "👍":
-					return Reaction.Like;
-				case "❤️":
-					return Reaction.Love;
-				case "😆":
-					return Reaction.Laugh;
-				case "🤔":
-					return Reaction.Hmm;
-				case "😮":
-					return Reaction.Surprise;
-				case "🎉":
-					return Reaction.Congrats;
-				case "💢":
-					return Reaction.Angry;
-				case "😥":
-					return Reaction.Confused;
-				case "😇":
-					return Reaction.Rip;
-				case "🍮":
-				// プリンより寿司が好き
-				case "🍣":
-					return Reaction.Pudding;
-
-				default:
-					throw new ArgumentOutOfRangeException(nameof(reactionChar), reactionChar, null);
-			}
+				"👍" => Reaction.Like,
+				"❤️" => Reaction.Love,
+				"😆" => Reaction.Laugh,
+				"🤔" => Reaction.Hmm,
+				"😮" => Reaction.Surprise,
+				"🎉" => Reaction.Congrats,
+				"💢" => Reaction.Angry,
+				"😥" => Reaction.Confused,
+				"😇" => Reaction.Rip,
+				"🍮" or "🍣" => Reaction.Pudding,
+				_ => throw new ArgumentOutOfRangeException(nameof(reactionChar), reactionChar, null),
+			};
 		}
 
 		public async Task<IPost?> GetPostAsync(string id) => new MiPost(await Misskey.Notes.ShowAsync(id));

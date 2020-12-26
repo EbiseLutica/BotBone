@@ -98,7 +98,7 @@ namespace BotBone.Sea
 		{
 			var uri = Credential.Uri;
 			// スキームの置き換え
-			if (uri.StartsWith("http")) uri = "ws" + uri.Substring(4);
+			if (uri.StartsWith("http")) uri = "ws" + uri[4..];
 			// 末尾に /api を付加
 			uri = (uri.EndsWith("/") ? uri : uri + "/") + "api";
 			Logger.Info($"'{uri}' に接続します。");
@@ -162,7 +162,7 @@ namespace BotBone.Sea
 
 		public async Task<T> GetAsync<T>(string endPoint, string? query = null)
 		{
-			if (endPoint.StartsWith('/')) endPoint = endPoint.Substring(1);
+			if (endPoint.StartsWith('/')) endPoint = endPoint[1..];
 			if (endPoint.EndsWith('/')) endPoint = endPoint.Remove(endPoint.Length - 1);
 			var uri = new Uri(new Uri(Credential.Uri), $"/api/v1/{endPoint}/{HttpUtility.UrlEncode(query)}");
 			var json = await Http.GetStringAsync(uri);
@@ -171,7 +171,7 @@ namespace BotBone.Sea
 
 		public async Task<T> PostAsync<T>(string endPoint, HttpContent? content = null)
 		{
-			if (endPoint.StartsWith('/')) endPoint = endPoint.Substring(1);
+			if (endPoint.StartsWith('/')) endPoint = endPoint[1..];
 			if (endPoint.EndsWith('/')) endPoint = endPoint.Remove(endPoint.Length - 1);
 
 			var res = await Http.PostAsync($"{Credential.Uri}/api/v1/{endPoint}", content).Stay();
@@ -181,7 +181,7 @@ namespace BotBone.Sea
 
 		public async Task<T> PatchAsync<T>(string endPoint, HttpContent content)
 		{
-			if (endPoint.StartsWith('/')) endPoint = endPoint.Substring(1);
+			if (endPoint.StartsWith('/')) endPoint = endPoint[1..];
 			if (endPoint.EndsWith('/')) endPoint = endPoint.Remove(endPoint.Length - 1);
 
 			var res = await Http.PostAsync($"{Credential.Uri}/api/v1/{endPoint}", content).Stay();

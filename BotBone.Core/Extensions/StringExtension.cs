@@ -7,10 +7,10 @@ namespace BotBone.Core
 		public static bool IsMatch(this string input, string pattern) => Regex.IsMatch(input, pattern);
 
 		public static string TrimMentions(this string str) => RegexMentions.Replace(str, "").Trim();
-		
+
 		public static bool ContainsMentions(this string str) => RegexMentions.IsMatch(str);
 
-		public static string ToHiragana(this string str) => 
+		public static string ToHiragana(this string str) =>
 			 str.Replace("ア", "あ")
 				.Replace("イ", "い")
 				.Replace("ウ", "う")
@@ -177,6 +177,6 @@ namespace BotBone.Core
 				.Replace("ｯ", "っ")
 				.Replace("ｳﾞ", "ゔ");
 
-		public static readonly Regex RegexMentions = new Regex(@"@[a-zA-Z0-9_]+(@[a-zA-Z0-9\-\.]+)?");
+		public static readonly Regex RegexMentions = new(@"@[a-zA-Z0-9_]+(@[a-zA-Z0-9\-\.]+)?");
 	}
 }

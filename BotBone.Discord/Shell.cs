@@ -272,6 +272,6 @@ namespace BotBone.Discord
 			return null;
 		}
 
-		private readonly Logger logger = new Logger(nameof(Shell));
+		private readonly Logger logger = new(nameof(Shell));
 	}
 }

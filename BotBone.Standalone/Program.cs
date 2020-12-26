@@ -114,7 +114,7 @@ namespace BotBone.Standalone
 
 		public IPoll? Poll => null;
 
-		public List<IAttachment> Attachments => new List<IAttachment>();
+		public List<IAttachment> Attachments => new();
 
 		public IUser Recipient { get; set; }
 

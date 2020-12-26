@@ -210,7 +210,7 @@ namespace BotBone.Core
 			if (command == null)
 				throw new ArgumentNullException(nameof(command));
 			if (command.StartsWith("/"))
-				command = command.Substring(1).Trim();
+				command = command[1..].Trim();
 			var splitted = Regex.Split(command, @"\s").Where(s => !string.IsNullOrWhiteSpace(s));
 			var name = splitted.First();
 			var cmd = TryGetCommand(name) ?? throw new NoSuchCommandException();
@@ -229,7 +229,7 @@ namespace BotBone.Core
 
 			try
 			{
-				return await cmd.OnActivatedAsync(sender, this, Shell, splitted.Skip(1).ToArray(), command.Substring(name.Length).Trim());
+				return await cmd.OnActivatedAsync(sender, this, Shell, splitted.Skip(1).ToArray(), command[name.Length..].Trim());
 			}
 			catch (CommandException)
 			{

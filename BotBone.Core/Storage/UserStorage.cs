@@ -8,7 +8,7 @@ namespace BotBone.Core.Api
 {
 	public class UserStorage
 	{
-		public ReadOnlyDictionary<string, UserRecord> Records => new ReadOnlyDictionary<string, UserRecord>(storage);
+		public ReadOnlyDictionary<string, UserRecord> Records => new(storage);
 
 		public UserStorage()
 		{
@@ -107,11 +107,11 @@ namespace BotBone.Core.Api
 			return rec;
 		}
 
-		private readonly ConcurrentDictionary<string, UserRecord> storage = new ConcurrentDictionary<string, UserRecord>();
+		private readonly ConcurrentDictionary<string, UserRecord> storage = new();
 
-		private readonly object fileLock = new object();
+		private readonly object fileLock = new();
 
-		protected static Logger logger = new Logger("UserStorage");
+		protected static Logger logger = new("UserStorage");
 
 		public class UserRecord
 		{

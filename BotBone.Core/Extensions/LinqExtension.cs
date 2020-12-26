@@ -7,7 +7,7 @@ namespace BotBone.Core
 {
 	public static class LinqExtension
 	{
-		static readonly Random r = new Random();
+		static readonly Random r = new();
 
 		public static T Random<T>(this IList<T> list, Random? r = null)
 		{
