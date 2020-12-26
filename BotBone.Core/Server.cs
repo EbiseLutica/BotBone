@@ -39,7 +39,9 @@ namespace BotBone.Core
 		/// </summary>
 		public IShell Shell { get; }
 
-		public Logger Logger => new Logger("Core");
+		public Logger Logger => new("Core");
+
+		public static Server? Current { get; private set; }
 
 		/// <summary>
 		/// 文脈の一覧を取得します。
@@ -72,6 +74,11 @@ namespace BotBone.Core
 		/// </summary>
 		public Server(IShell shell)
 		{
+			if (Current != null)
+			{
+				Logger.Warn("Server instance has been generated multiple.");
+			}
+
 			Shell = shell;
 
 			const string pluginsPath = "./plugins";
@@ -159,6 +166,8 @@ namespace BotBone.Core
 				File.Delete("./nicknames");
 				Logger.Info($"{lines.Length} 人のニックネームを、新しい UserStorage に移行しました!");
 			}
+
+			Current = this;
 		}
 
 		/// <summary>
@@ -496,6 +505,6 @@ namespace BotBone.Core
 			Logger.Error($"{ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}");
 		}
 
-		public static readonly HttpClient Http = new HttpClient();
+		public static readonly HttpClient Http = new();
 	}
 }
