@@ -27,12 +27,17 @@ namespace BotBone.Core
 		/// <summary>
 		/// 読み込まれているモジュール一覧を取得します。
 		/// </summary>
-		public List<IModule> Modules { get; }
+		public List<IModule> Modules { get; } = new();
 
 		/// <summary>
 		/// 読み込まれているコマンド一覧を取得します。
 		/// </summary>
-		public List<ICommand> Commands { get; }
+		public List<ICommand> Commands { get; } = new();
+
+		/// <summary>
+		/// 読み込まれているプラグイン一覧を取得します。
+		/// </summary>
+		public List<PluginBase> Plugins { get; } = new();
 
 		/// <summary>
 		/// シェルを取得します。
@@ -97,28 +102,34 @@ namespace BotBone.Core
 				.SelectMany(a =>
 				{
 					var types = a.GetTypes();
-					Logger.Info($"Loaded {types.Count()} types");
+					Logger.Info($"Loaded {types.Length} types");
 					return types;
 				})
 				.ToList();
 
+			// ここでToListしておかないと下で毎回インスタンス生成されてしまう
 			var plugins = types
 				.Where(t => typeof(IModule).IsAssignableFrom(t) || typeof(ICommand).IsAssignableFrom(t))
 				.Where(a => a.GetConstructor(Type.EmptyTypes) != null)
 				.Select(a => Activator.CreateInstance(a))
 				.ToList();
 
-			Modules = plugins
+			plugins
 				.OfType<IModule>()
 				.OrderBy(mod => mod.Priority)
-				.ToList();
+				.ForEach(AddModule);
 
 			Logger.Info($"Loaded {Modules.Count} modules");
 
-			Commands = plugins
+			plugins
 				.OfType<ICommand>()
-				.ToList();
+				.ForEach(AddCommand);
 			Logger.Info($"Loaded {Commands.Count} commands");
+
+			plugins
+				.OfType<PluginBase>()
+				.ForEach(AddPlugin);
+			Logger.Info($"Loaded {Plugins.Count} plugins");
 
 
 			string adminId = "";
@@ -136,7 +147,7 @@ namespace BotBone.Core
 			if (string.IsNullOrEmpty(Config.Instance.Admin))
 			{
 				Console.Write("Admin's ID > ");
-				adminId = Console.ReadLine().Trim().ToLower();
+				adminId = Console.ReadLine()?.Trim().ToLower() ?? "";
 				Config.Instance.Admin = adminId;
 				Config.Instance.Save();
 			}
@@ -182,6 +193,7 @@ namespace BotBone.Core
 			{
 				Modules.Add(mod);
 				Modules.Sort((m1, m2) => m1.Priority - m2.Priority);
+				Logger.Info("Registered a module " + mod.GetType().Name);
 			}
 		}
 
@@ -193,15 +205,27 @@ namespace BotBone.Core
 			if (Commands.Contains(cmd))
 				return;
 			Commands.Add(cmd);
+			Logger.Info("Registered a command " + cmd.GetType().Name);
 		}
 
-		public ICommand TryGetCommand(string n) => Commands.FirstOrDefault(c =>
+		/// <summary>
+		/// プラグインを追加します。
+		/// </summary>
+		public void AddPlugin(PluginBase plugin)
+		{
+			if (Plugins.Contains(plugin))
+				return;
+			Plugins.Add(plugin);
+			Logger.Info("Registered a plugin " + plugin.GetType().Name);
+		}
+
+		public ICommand? TryGetCommand(string n) => Commands.FirstOrDefault(c =>
 		{
 			var cn = c.Name;
 			var cnl = c.Name.ToLowerInvariant();
 			var nl = n.ToLowerInvariant();
 			var nameIsMatch = c.IgnoreCase ? (cnl == nl) : cn == n;
-			var lowerAliases = c.Aliases?.Select(a => a.ToLowerInvariant());
+			var lowerAliases = c.Aliases.Select(a => a.ToLowerInvariant());
 			return c.Aliases == null ? nameIsMatch : nameIsMatch || (c.IgnoreCase ? lowerAliases.Contains(nl) : c.Aliases.Contains(n));
 		});
 
