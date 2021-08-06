@@ -179,6 +179,8 @@ namespace BotBone.Core
 			}
 
 			Current = this;
+
+			Plugins.ForEach(pl => pl.OnEnabled(this));
 		}
 
 		/// <summary>

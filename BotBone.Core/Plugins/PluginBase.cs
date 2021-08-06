@@ -7,11 +7,11 @@ namespace BotBone.Core
 		/// <summary>
 		/// 有効化されたときに呼ばれます。
 		/// </summary>
-		public virtual Task OnEnabled() => Task.Delay(0);
+		public virtual Task OnEnabled(Server server) => Task.Delay(0);
 
 		/// <summary>
 		/// 無効化されたときに呼ばれます。
 		/// </summary>
-		public virtual Task OnDisabled() => Task.Delay(0);
+		public virtual Task OnDisabled(Server server) => Task.Delay(0);
 	}
 }
