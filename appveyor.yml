@@ -52,6 +52,6 @@ deploy:
       裏でロジックを動作させる、イベントを購読するなどの目的を想定しています。
 
     auth_token:
-      secure: FUlGF4CyRZNM6jaGz2wlmsOIwZt4av2Cxn4lHbi5wU5lim3FixH9ZIhLGDRZftOx
+      secure: oUjl9upjQlUJAOdq7XeHbax8LSo0lUuRRB91g2ROG/Q2MX8Khv7OnB2ZQRa8AIWD
     on:
       APPVEYOR_REPO_TAG: true # deploy on tag push only
