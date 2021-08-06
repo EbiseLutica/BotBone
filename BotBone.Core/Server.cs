@@ -22,7 +22,7 @@ namespace BotBone.Core
 		/// <summary>
 		/// バージョンを取得します。
 		/// </summary>
-		public static string Version => "1.2.0";
+		public static string Version => "1.3.0";
 
 		/// <summary>
 		/// 読み込まれているモジュール一覧を取得します。
