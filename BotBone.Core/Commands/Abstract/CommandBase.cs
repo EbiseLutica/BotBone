@@ -16,7 +16,7 @@ namespace BotBone.Core
 		/// <summary>
 		/// コマンドのエイリアス一覧を取得します。
 		/// </summary>
-		public virtual string[] Aliases { get; } = new string[0];
+		public virtual string[] Aliases { get; } = System.Array.Empty<string>();
 
 		/// <summary>
 		/// コマンド名の大文字小文字を区別しないかどうかを示す値を取得します。

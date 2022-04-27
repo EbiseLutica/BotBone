@@ -8,7 +8,7 @@ It has a BotBone API that independent of a specific social-media platform, so yo
 
 ## Requirement
 
-- .NET Core 3
+- .NET 5
 
 ## To build
 
