@@ -236,21 +236,48 @@ namespace BotBone.Misskey
 			};
 		}
 
-		public async Task<IPost?> GetPostAsync(string id) => new MiPost(await Misskey.Notes.ShowAsync(id));
+		public async Task<IPost?> GetPostAsync(string id)
+		{
+			try
+			{
+				return new MiPost(await Misskey.Notes.ShowAsync(id));
+			}
+			catch (Disboard.Exceptions.DisboardException)
+			{
+				return null;
+			}
+		}
 
-		public async Task<IUser?> GetUserAsync(string id) => new MiUser((await Misskey.Users.ShowAsync(userId: id)).First());
+		public async Task<IUser?> GetUserAsync(string id)
+		{
+			try
+			{
+				return new MiUser((await Misskey.Users.ShowAsync(userId: id)).First());
+			}
+			catch (Disboard.Exceptions.DisboardException)
+			{
+				return null;
+			}
+		}
 
 		public async Task<IUser?> GetUserByNameAsync(string name)
 		{
-			var splitted = name.Split('@').Where(s => !string.IsNullOrEmpty(s)).ToArray();
-			var acct = (splitted.Length switch
+			try
 			{
-				0 => throw new ArgumentException(nameof(name)),
-				1 => await Misskey.Users.ShowAsync(username: splitted[0]),
-				_ => await Misskey.Users.ShowAsync(username: splitted[0], host: splitted[1]),
-			}).FirstOrDefault();
+				var splitted = name.Split('@').Where(s => !string.IsNullOrEmpty(s)).ToArray();
+				var acct = (splitted.Length switch
+				{
+					0 => throw new ArgumentException(nameof(name)),
+					1 => await Misskey.Users.ShowAsync(username: splitted[0]),
+					_ => await Misskey.Users.ShowAsync(username: splitted[0], host: splitted[1]),
+				}).FirstOrDefault();
 
-			return acct != null ? new MiUser(acct) : null;
+				return acct != null ? new MiUser(acct) : null;
+			}
+			catch (Disboard.Exceptions.DisboardException)
+			{
+				return null;
+			}
 		}
 
 		public async Task LikeAsync(IPost post)
