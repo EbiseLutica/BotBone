@@ -23,7 +23,7 @@ namespace BotBone.Misskey
 
 	public class Shell : IShell
 	{
-		public static string Version => "2.3.0";
+		public static string Version => "2.3.1";
 
 		public MisskeyClient Misskey { get; private set; }
 
